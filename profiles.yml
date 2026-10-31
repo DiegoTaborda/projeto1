@@ -1,0 +1,8 @@
+projeto1:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "olist.duckdb"
+      schema: main           
+      threads: 4

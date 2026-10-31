@@ -1,0 +1,23 @@
+# dbt artifacts
+target/
+dbt_packages/
+dbt_modules/
+logs/
+
+# DuckDB database (pode ser regenerado pelo script)
+*.duckdb
+*.duckdb.wal
+
+# Dados brutos (CSVs do Olist)
+data_raw/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
