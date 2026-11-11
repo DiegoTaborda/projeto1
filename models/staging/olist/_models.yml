@@ -35,3 +35,67 @@ models:
         description: "UF do cliente (2 letras maiúsculas)."
         tests:
           - not_null
+  - name: stg_olist__order_items
+    description: "Itens de pedido do Olist. Grão: uma linha por item dentro de um pedido."
+    columns:
+      - name: order_id
+        description: "Identificador do pedido."
+        tests:
+          - not_null
+      - name: order_item_id
+        description: "Posição do item dentro do pedido (1, 2, 3...)."
+        tests:
+          - not_null
+      - name: product_id
+        description: "Identificador do produto."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_olist__products')
+              field: product_id
+      - name: seller_id
+        description: "Identificador do vendedor."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_olist__sellers')
+              field: seller_id
+      - name: price
+        description: "Preço do item."
+        tests:
+          - not_null
+
+  - name: stg_olist__products
+    description: "Produtos do Olist com nomes de coluna corrigidos (typos do CSV original)."
+    columns:
+      - name: product_id
+        description: "Identificador único do produto."
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_olist__sellers
+    description: "Vendedores do Olist com cidade e estado padronizados."
+    columns:
+      - name: seller_id
+        description: "Identificador único do vendedor."
+        tests:
+          - unique
+          - not_null
+      - name: state
+        description: "UF do vendedor."
+        tests:
+          - not_null
+
+  - name: stg_olist__order_payments
+    description: "Pagamentos dos pedidos. Grão: uma linha por pagamento."
+    columns:
+      - name: order_id
+        description: "Identificador do pedido."
+        tests:
+          - not_null
+      - name: payment_type
+        description: "Tipo de pagamento."
+        tests:
+          - accepted_values:
+              values: ['credit_card', 'boleto', 'voucher', 'debit_card', 'not_defined']    
